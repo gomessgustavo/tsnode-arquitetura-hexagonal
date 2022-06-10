@@ -1,6 +1,6 @@
 import { Produto } from "../../application/core/domain/Produto";
-import ProdutoEntity from "../../adapters/inbound/entity/ProdutoEntity";
 import SalvarProdutoPort from "../../application/ports/out/SalvarProdutoPort";
+import ProdutoRepository from "./repository/ProdutoRepository";
 
 export class SalvarProdutoAdapter implements SalvarProdutoPort {
   constructor() {
@@ -8,13 +8,13 @@ export class SalvarProdutoAdapter implements SalvarProdutoPort {
   }
   criar = async (produto: Produto): Promise<Produto> => {
     try {
-      const { nome, descricao, preco } = produto;
-      const produtoNovo = await ProdutoEntity.create({
-        nome,
-        descricao,
-        preco,
-      });
-      return { id: produtoNovo.id, nome, descricao, preco };
+      const produtoNovo = await ProdutoRepository.salvar(produto);
+      return {
+        id: produtoNovo.id,
+        nome: produtoNovo.nome,
+        descricao: produtoNovo.descricao,
+        preco: produtoNovo.preco,
+      };
     } catch (error) {
       throw error;
     }
