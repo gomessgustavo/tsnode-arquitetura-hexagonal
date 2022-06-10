@@ -13,7 +13,6 @@ export class SalvarProdutoService implements SalvarProdutoServicePort {
   }
 
   criar = async (produto: Produto) => {
-    console.log(produto);
     return this.salvarProdutoPort.criar(produto);
   };
 }
