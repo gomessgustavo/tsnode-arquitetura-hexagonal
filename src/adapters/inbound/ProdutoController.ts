@@ -4,6 +4,7 @@ import ProdutoEntity from "./entity/ProdutoEntity";
 // import { CriarProdutoRequest } from "./request/CriarProdutoRequest";
 import { Produto } from "../../application/core/domain/Produto";
 import { container } from "tsyringe";
+import { ListarProdutoService } from "../../application/core/service/ListarProdutoService";
 
 class ProdutoController {
   async salvar(req: Request, res: Response): Promise<void> {
@@ -15,8 +16,8 @@ class ProdutoController {
   }
 
   async listagem(_: Request, res: Response): Promise<void> {
-    const produtos = await ProdutoEntity.findAll();
-
+    const listarProdutosService = container.resolve(ListarProdutoService);
+    const produtos = await listarProdutosService.listar();
     res.send(produtos);
   }
 

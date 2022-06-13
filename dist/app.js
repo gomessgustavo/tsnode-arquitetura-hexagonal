@@ -25,8 +25,13 @@ class App {
     this.servidor.use(_routes2.default);
   }
 
-   database() {
-    _database2.default.init();
+   async database() {
+    const { connection } = _database2.default;
+    try {
+      await connection.sync();
+    } catch (erro) {
+      console.log(erro);
+    }
   }
 }
 

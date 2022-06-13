@@ -1,6 +1,6 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _ProdutoEntity = require('../../adapters/inbound/entity/ProdutoEntity'); var _ProdutoEntity2 = _interopRequireDefault(_ProdutoEntity);
 
+var _ProdutoRepository = require('./repository/ProdutoRepository'); var _ProdutoRepository2 = _interopRequireDefault(_ProdutoRepository);
 
  class SalvarProdutoAdapter  {
   constructor() {;SalvarProdutoAdapter.prototype.__init.call(this);
@@ -8,9 +8,13 @@ var _ProdutoEntity = require('../../adapters/inbound/entity/ProdutoEntity'); var
   }
   __init() {this.criar = async (produto) => {
     try {
-      const { nome, descricao, preco } = produto;
-      await _ProdutoEntity2.default.create({ nome, descricao, preco });
-      return { id: 2, nome, descricao, preco };
+      const produtoNovo = await _ProdutoRepository2.default.salvar(produto);
+      return {
+        id: produtoNovo.id,
+        nome: produtoNovo.nome,
+        descricao: produtoNovo.descricao,
+        preco: produtoNovo.preco,
+      };
     } catch (error) {
       throw error;
     }

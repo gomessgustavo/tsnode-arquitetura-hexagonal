@@ -6,6 +6,11 @@ class ProdutoRepository {
     const { id, nome, descricao, preco } = produto;
     return ProdutoEntity.create({ id, nome, descricao, preco });
   };
+
+  listar = (): Promise<Array<ProdutoEntity>> => {
+    console.log("cheguei");
+    return ProdutoEntity.findAll();
+  };
 }
 
 export default new ProdutoRepository();
