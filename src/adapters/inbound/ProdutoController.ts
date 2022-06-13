@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { SalvarProdutoService } from "../../application/core/service/SalvarProdutoService";
-import ProdutoEntity from "./entity/ProdutoEntity";
 // import { CriarProdutoRequest } from "./request/CriarProdutoRequest";
 import { Produto } from "../../application/core/domain/Produto";
 import { container } from "tsyringe";
 import { ListarProdutoService } from "../../application/core/service/ListarProdutoService";
 import { DeletarProdutoService } from "../../application/core/service/DeletarProdutoService";
+import { ProcurarProdutoService } from "../../application/core/service/ProcurarProdutoService";
 
 class ProdutoController {
   async salvar(req: Request, res: Response): Promise<void> {
@@ -23,9 +23,13 @@ class ProdutoController {
   }
 
   async porId(req: Request, res: Response): Promise<void> {
-    const produto = await ProdutoEntity.findByPk(req.params.id);
+    const procurarProdutoService = container.resolve(ProcurarProdutoService);
+    const { id } = req.params;
+    const produtoId = parseInt(id) | 0;
+    const produto = await procurarProdutoService.procurar(produtoId);
 
-    res.send(produto);
+    const status = produto ? 200 : 404;
+    res.status(status).send(produto);
   }
 
   async deletar(req: Request, res: Response): Promise<void> {

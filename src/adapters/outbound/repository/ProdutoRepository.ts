@@ -11,7 +11,7 @@ class ProdutoRepository {
     return ProdutoEntity.findAll();
   };
 
-  porId = (produtoId: number): Promise<Produto | null> => {
+  porId = (produtoId: number): Promise<ProdutoEntity | null> => {
     return ProdutoEntity.findByPk(produtoId);
   };
 
