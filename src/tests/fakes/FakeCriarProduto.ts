@@ -1,8 +1,8 @@
 import { uuid } from "uuidv4";
-import { Produto } from "../application/core/domain/Produto";
-import SalvarProdutoPort from "../application/ports/out/SalvarProdutoPort";
+import { Produto } from "../../application/core/domain/Produto";
+import SalvarProdutoPort from "../../application/ports/out/SalvarProdutoPort";
 
-export class Fake implements SalvarProdutoPort {
+export class FakeCriarProduto implements SalvarProdutoPort {
   private produtos: Produto[] = [];
   constructor() {
     this.criar = this.criar.bind(this);

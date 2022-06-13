@@ -1,14 +1,15 @@
 import "reflect-metadata";
 import { SalvarProdutoService } from "../application/core/service/SalvarProdutoService";
 import { Produto } from "../application/core/domain/Produto";
-import { Fake } from "./fake";
+import { FakeCriarProduto } from "./fakes/FakeCriarProduto";
 
-let fake: Fake;
+let fakeCriarProduto: FakeCriarProduto;
 let service: SalvarProdutoService;
+
 describe("Cadastro de produto", () => {
   beforeEach(() => {
-    fake = new Fake();
-    service = new SalvarProdutoService(fake);
+    fakeCriarProduto = new FakeCriarProduto();
+    service = new SalvarProdutoService(fakeCriarProduto);
   });
 
   it("Deve cadastrar um produto novo com sucesso", async () => {
@@ -19,7 +20,6 @@ describe("Cadastro de produto", () => {
     } as Produto;
 
     const retorno = await service.criar(produtoNovo);
-    console.log("a", retorno);
     expect(retorno).toHaveProperty("id");
   });
 });
