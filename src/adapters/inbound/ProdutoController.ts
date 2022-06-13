@@ -6,6 +6,7 @@ import { container } from "tsyringe";
 import { ListarProdutoService } from "../../application/core/service/ListarProdutoService";
 import { DeletarProdutoService } from "../../application/core/service/DeletarProdutoService";
 import { ProcurarProdutoService } from "../../application/core/service/ProcurarProdutoService";
+import { EditarProdutoService } from "../../application/core/service/EditarProdutoService";
 
 class ProdutoController {
   async salvar(req: Request, res: Response): Promise<void> {
@@ -39,6 +40,15 @@ class ProdutoController {
     const response = await deletarProdutoService.deletar(produtoId);
     const status = response ? 204 : 404;
     res.status(status).send();
+  }
+
+  async editar(req: Request, res: Response): Promise<void> {
+    const editarProdutoService = container.resolve(EditarProdutoService);
+    const { id } = req.params;
+    const produtoId = parseInt(id) | 0;
+    const response = await editarProdutoService.editar(produtoId, req.body);
+    const status = response ? 200 : 404;
+    res.status(status).send(response);
   }
 }
 

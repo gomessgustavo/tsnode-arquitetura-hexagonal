@@ -7,6 +7,8 @@ import DeletarProdutoPort from "../ports/out/DeletarProdutoPort";
 import { DeletarProdutoAdapter } from "../../adapters/outbound/DeletarProdutoAdapter";
 import ProcurarProdutoPort from "../ports/out/ProcurarProdutoPort";
 import { ProcurarProdutoAdapter } from "../../adapters/outbound/ProcurarProdutoAdapter";
+import EditarProdutoPort from "../ports/out/EditarProdutoPort";
+import { EditarProdutoAdapter } from "../../adapters/outbound/EditarProdutoAdapter";
 
 container.registerSingleton<SalvarProdutoPort>(
   "SalvarProdutoAdapter",
@@ -26,4 +28,9 @@ container.registerSingleton<DeletarProdutoPort>(
 container.registerSingleton<ProcurarProdutoPort>(
   "ProcurarProdutoAdapter",
   ProcurarProdutoAdapter
+);
+
+container.registerSingleton<EditarProdutoPort>(
+  "EditarProdutoAdapter",
+  EditarProdutoAdapter
 );

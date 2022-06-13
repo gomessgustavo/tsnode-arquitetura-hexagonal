@@ -7,5 +7,6 @@ routes.post("/produto", ProdutoController.salvar);
 routes.get("/produto", ProdutoController.listagem);
 routes.get("/produto/:id", ProdutoController.porId);
 routes.delete("/produto/:id", ProdutoController.deletar);
+routes.put("/produto/:id", ProdutoController.editar);
 
 export default routes;
