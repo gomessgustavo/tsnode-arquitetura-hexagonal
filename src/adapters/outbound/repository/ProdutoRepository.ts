@@ -8,8 +8,15 @@ class ProdutoRepository {
   };
 
   listar = (): Promise<Array<ProdutoEntity>> => {
-    console.log("cheguei");
     return ProdutoEntity.findAll();
+  };
+
+  porId = (produtoId: number): Promise<Produto | null> => {
+    return ProdutoEntity.findByPk(produtoId);
+  };
+
+  deletar = (produtoId: number): Promise<number> => {
+    return ProdutoEntity.destroy({ where: { id: produtoId } });
   };
 }
 

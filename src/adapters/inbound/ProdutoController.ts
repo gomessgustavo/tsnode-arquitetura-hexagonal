@@ -5,6 +5,7 @@ import ProdutoEntity from "./entity/ProdutoEntity";
 import { Produto } from "../../application/core/domain/Produto";
 import { container } from "tsyringe";
 import { ListarProdutoService } from "../../application/core/service/ListarProdutoService";
+import { DeletarProdutoService } from "../../application/core/service/DeletarProdutoService";
 
 class ProdutoController {
   async salvar(req: Request, res: Response): Promise<void> {
@@ -12,7 +13,7 @@ class ProdutoController {
     const { body }: Request = req;
     const produto = body as Produto;
     salvarProdutoService.criar(produto);
-    res.send(produto);
+    res.status(201).send(produto);
   }
 
   async listagem(_: Request, res: Response): Promise<void> {
@@ -25,6 +26,15 @@ class ProdutoController {
     const produto = await ProdutoEntity.findByPk(req.params.id);
 
     res.send(produto);
+  }
+
+  async deletar(req: Request, res: Response): Promise<void> {
+    const deletarProdutoService = container.resolve(DeletarProdutoService);
+    const { id } = req.params;
+    const produtoId = parseInt(id) | 0;
+    const response = await deletarProdutoService.deletar(produtoId);
+    const status = response ? 204 : 404;
+    res.status(status).send();
   }
 }
 
