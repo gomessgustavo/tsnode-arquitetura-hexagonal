@@ -1,12 +1,14 @@
+import { ProdutoController } from "./adapters/inbound/ProdutoController";
 import { Router } from "express";
-import ProdutoController from "./adapters/inbound/ProdutoController";
 
 const routes = Router();
 
-routes.post("/produto", ProdutoController.salvar);
-routes.get("/produto", ProdutoController.listagem);
-routes.get("/produto/:id", ProdutoController.porId);
-routes.delete("/produto/:id", ProdutoController.deletar);
-routes.put("/produto/:id", ProdutoController.editar);
+const produtoController = new ProdutoController();
+
+routes.post("/produto", produtoController.salvar);
+routes.get("/produto", produtoController.listagem);
+routes.get("/produto/:id", produtoController.porId);
+routes.delete("/produto/:id", produtoController.deletar);
+routes.put("/produto/:id", produtoController.editar);
 
 export default routes;

@@ -1,29 +1,41 @@
 import "reflect-metadata";
 import "../application/shared";
-import ProdutoController from "../adapters/inbound/ProdutoController";
+import { ProdutoController } from "../adapters/inbound/ProdutoController";
 import { Request, Response } from "express";
+import { container } from "tsyringe";
+import { FakeCriarProduto } from "./fakes/FakeCriarProduto";
 
-const mockRequest: Partial<Request> = {
-  body: {
-    nome: "Caneta",
-    descricao: "Caneta Bic",
-    preco: 0.25,
-  },
+const produto = {
+  nome: "Caneta",
+  descricao: "Caneta Bic",
+  preco: 0.25,
 };
 
-const mockResponse = (): Partial<Response> => {
-  const res = { status: jest.fn(), send: jest.fn() };
-  res.status = res.status.mockReturnValue(res);
-  res.send = res.send.mockReturnValue(res);
-  return res;
+const mockRequest: Partial<Request> = {
+  body: produto,
+};
+
+const mockResponse: Partial<Response> = {
+  status: jest.fn().mockReturnThis(),
+  send: jest.fn().mockReturnThis(),
 };
 
 describe("Produto controller", () => {
+  let produtoController = new ProdutoController();
+  beforeEach(() => {
+    container.registerSingleton("SalvarProdutoAdapter", FakeCriarProduto);
+  });
+
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
+
   it("Deve fazer requisição de criar com sucesso", async () => {
-    jest.spyOn(ProdutoController, "salvar");
-    const res = mockResponse();
-    await ProdutoController.salvar(mockRequest as Request, res as Response);
-    expect(res.send).toHaveBeenCalled();
-    expect(res.status).toHaveBeenCalled();
+    await produtoController.salvar(
+      mockRequest as Request,
+      mockResponse as Response
+    );
+    expect(mockResponse.send).toHaveBeenCalledWith(produto);
+    expect(mockResponse.status).toHaveBeenCalledWith(201);
   });
 });

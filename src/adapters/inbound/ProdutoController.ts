@@ -8,7 +8,7 @@ import { DeletarProdutoService } from "../../application/core/service/DeletarPro
 import { ProcurarProdutoService } from "../../application/core/service/ProcurarProdutoService";
 import { EditarProdutoService } from "../../application/core/service/EditarProdutoService";
 
-class ProdutoController {
+export class ProdutoController {
   async salvar(req: Request, res: Response): Promise<void> {
     const salvarProdutoService = container.resolve(SalvarProdutoService);
     const { body }: Request = req;
@@ -51,5 +51,3 @@ class ProdutoController {
     res.status(status).send(response);
   }
 }
-
-export default new ProdutoController();
