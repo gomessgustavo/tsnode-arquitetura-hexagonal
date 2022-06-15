@@ -1,29 +1,23 @@
 import "reflect-metadata";
 import "../application/shared";
 import { ProdutoController } from "../adapters/inbound/ProdutoController";
-import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { FakeCriarProduto } from "./fakes/FakeCriarProduto";
-
-const produto = {
-  nome: "Caneta",
-  descricao: "Caneta Bic",
-  preco: 0.25,
-};
-
-const mockRequest: Partial<Request> = {
-  body: produto,
-};
-
-const mockResponse: Partial<Response> = {
-  status: jest.fn().mockReturnThis(),
-  send: jest.fn().mockReturnThis(),
-};
+import { getMockReq, getMockRes } from "@jest-mock/express";
+import { FakeListarProduto } from "./fakes/FakeListarProduto";
+import { Produto } from "application/core/domain/Produto";
+import { FakeBuscarProduto } from "./fakes/FakeBuscarProduto";
+import { Response } from "express";
 
 describe("Produto controller", () => {
   let produtoController = new ProdutoController();
+  let mockResponse: Response;
   beforeEach(() => {
+    mockResponse = getMockRes().res;
+
     container.registerSingleton("SalvarProdutoAdapter", FakeCriarProduto);
+    container.registerSingleton("ListarProdutoAdapter", FakeListarProduto);
+    container.registerSingleton("ProcurarProdutoAdapter", FakeBuscarProduto);
   });
 
   afterAll(() => {
@@ -31,11 +25,49 @@ describe("Produto controller", () => {
   });
 
   it("Deve fazer requisição de criar com sucesso", async () => {
-    await produtoController.salvar(
-      mockRequest as Request,
-      mockResponse as Response
-    );
+    const produto = {
+      nome: "Caneta",
+      descricao: "Caneta Bic",
+      preco: 0.25,
+    };
+
+    const mockRequest = getMockReq({ body: produto });
+
+    await produtoController.salvar(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledWith(produto);
     expect(mockResponse.status).toHaveBeenCalledWith(201);
+  });
+
+  it("Deve fazer requisição de buscar os produtos", async () => {
+    const produtos: Produto[] = [];
+
+    const mockRequest = getMockReq();
+
+    await produtoController.listagem(mockRequest, mockResponse);
+
+    expect(mockResponse.send).toHaveBeenCalledWith(produtos);
+  });
+
+  it("Deve fazer requisição de buscar o produto por id", async () => {
+    const produto = {
+      id: 1,
+      nome: "Caneta",
+      descricao: "Caneta da marca bic",
+      preco: 0.25,
+    };
+
+    const mockRequest = getMockReq({ params: { id: "1" } });
+
+    await produtoController.porId(mockRequest, mockResponse);
+
+    expect(mockResponse.send).toHaveBeenCalledWith(produto);
+  });
+  it("Deve fazer requisição de buscar o produto por id e não encontrar", async () => {
+    const mockRequest = getMockReq({ params: { id: "2" } });
+
+    await produtoController.porId(mockRequest, mockResponse);
+
+    expect(mockResponse.status).toHaveBeenCalledWith(404);
+    expect(mockResponse.send).toHaveBeenCalled();
   });
 });

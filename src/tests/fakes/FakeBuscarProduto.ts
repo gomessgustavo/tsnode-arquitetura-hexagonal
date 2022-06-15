@@ -11,7 +11,6 @@ export class FakeBuscarProduto implements ProcurarProdutoPort {
 
   procurar = async (produtoId: number): Promise<Produto | null> => {
     const produto = this.produtos.find(({ id }) => id === produtoId);
-
     return produto || null;
   };
 }
