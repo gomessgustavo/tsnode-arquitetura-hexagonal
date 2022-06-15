@@ -8,6 +8,7 @@ import { FakeListarProduto } from "./fakes/FakeListarProduto";
 import { Produto } from "application/core/domain/Produto";
 import { FakeBuscarProduto } from "./fakes/FakeBuscarProduto";
 import { Response } from "express";
+import { FakeDeletarProduto } from "./fakes/FakeDeletarProduto";
 
 describe("Produto controller", () => {
   let produtoController = new ProdutoController();
@@ -18,6 +19,7 @@ describe("Produto controller", () => {
     container.registerSingleton("SalvarProdutoAdapter", FakeCriarProduto);
     container.registerSingleton("ListarProdutoAdapter", FakeListarProduto);
     container.registerSingleton("ProcurarProdutoAdapter", FakeBuscarProduto);
+    container.registerSingleton("DeletarProdutoAdapter", FakeDeletarProduto);
   });
 
   afterAll(() => {
@@ -66,6 +68,22 @@ describe("Produto controller", () => {
     const mockRequest = getMockReq({ params: { id: "2" } });
 
     await produtoController.porId(mockRequest, mockResponse);
+
+    expect(mockResponse.status).toHaveBeenCalledWith(404);
+    expect(mockResponse.send).toHaveBeenCalled();
+  });
+  it("Deve deletar produto com sucesso", async () => {
+    const mockRequest = getMockReq({ params: { id: "1" } });
+
+    await produtoController.deletar(mockRequest, mockResponse);
+
+    expect(mockResponse.status).toHaveBeenCalledWith(204);
+    expect(mockResponse.send).toHaveBeenCalled();
+  });
+  it("Deve não conseguir deletar produto", async () => {
+    const mockRequest = getMockReq({ params: { id: "2" } });
+
+    await produtoController.deletar(mockRequest, mockResponse);
 
     expect(mockResponse.status).toHaveBeenCalledWith(404);
     expect(mockResponse.send).toHaveBeenCalled();
