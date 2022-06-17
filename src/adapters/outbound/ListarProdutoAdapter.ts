@@ -1,4 +1,4 @@
-import ListarProdutosPort from "application/ports/out/ListarProdutosPort";
+import ListarProdutosPort from "../../application/ports/out/ListarProdutosPort";
 import { Produto } from "../../application/core/domain/Produto";
 import ProdutoRepository from "./repository/ProdutoRepository";
 

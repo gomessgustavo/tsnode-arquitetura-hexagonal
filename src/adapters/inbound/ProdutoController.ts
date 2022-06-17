@@ -7,6 +7,7 @@ import { ListarProdutoService } from "../../application/core/service/ListarProdu
 import { DeletarProdutoService } from "../../application/core/service/DeletarProdutoService";
 import { ProcurarProdutoService } from "../../application/core/service/ProcurarProdutoService";
 import { EditarProdutoService } from "../../application/core/service/EditarProdutoService";
+import { getResponse } from "../../application/core/http/Response";
 
 export class ProdutoController {
   async salvar(req: Request, res: Response): Promise<void> {
@@ -47,7 +48,7 @@ export class ProdutoController {
     const { id } = req.params;
     const produtoId = parseInt(id) | 0;
     const response = await editarProdutoService.editar(produtoId, req.body);
-    const status = response ? 200 : 404;
-    res.status(status).send(response);
+    const formataResponse = getResponse(response);
+    res.status(formataResponse.status).send(formataResponse.data);
   }
 }

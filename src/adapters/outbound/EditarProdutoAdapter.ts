@@ -1,15 +1,21 @@
-import EditarProdutoPort from "application/ports/out/EditarProdutoPort";
+import { Erro } from "../../application/core/domain/Erro";
 import { Produto } from "../../application/core/domain/Produto";
+import EditarProdutoPort from "../../application/ports/out/EditarProdutoPort";
 import ProdutoRepository from "./repository/ProdutoRepository";
 
 export class EditarProdutoAdapter implements EditarProdutoPort {
   constructor() {
     this.editar = this.editar.bind(this);
   }
-  editar = async (produtoId: number, produto: Produto): Promise<Produto> => {
+  editar = async (
+    produtoId: number,
+    produto: Produto
+  ): Promise<Produto | Erro> => {
     try {
       const produtoPorId = await ProdutoRepository.porId(produtoId);
-      if (!produtoPorId) throw new Error();
+      if (!produtoPorId) {
+        return { mensagem: "Não foi encontrado nenhum produto", status: 404 };
+      }
 
       const produtoEditado = {
         id: produtoId,
@@ -17,15 +23,9 @@ export class EditarProdutoAdapter implements EditarProdutoPort {
         descricao: produto.descricao,
         preco: produto.preco,
       };
-      const produtoNovo = await ProdutoRepository.salvar(produtoEditado);
-      return {
-        id: produtoNovo.id,
-        nome: produtoNovo.nome,
-        descricao: produtoNovo.descricao,
-        preco: produtoNovo.preco,
-      };
+      return await ProdutoRepository.salvar(produtoEditado);
     } catch (error) {
-      throw error;
+      return { mensagem: "Não foi possível editar o produto", status: 400 };
     }
   };
 }

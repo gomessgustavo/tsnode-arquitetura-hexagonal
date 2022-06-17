@@ -5,10 +5,11 @@ import { container } from "tsyringe";
 import { FakeCriarProduto } from "./fakes/FakeCriarProduto";
 import { getMockReq, getMockRes } from "@jest-mock/express";
 import { FakeListarProduto } from "./fakes/FakeListarProduto";
-import { Produto } from "application/core/domain/Produto";
 import { FakeBuscarProduto } from "./fakes/FakeBuscarProduto";
 import { Response } from "express";
 import { FakeDeletarProduto } from "./fakes/FakeDeletarProduto";
+import { Produto } from "../application/core/domain/Produto";
+import { FakeEditarProduto } from "./fakes/FakeEditarProduto";
 
 describe("Produto controller", () => {
   let produtoController = new ProdutoController();
@@ -20,6 +21,7 @@ describe("Produto controller", () => {
     container.registerSingleton("ListarProdutoAdapter", FakeListarProduto);
     container.registerSingleton("ProcurarProdutoAdapter", FakeBuscarProduto);
     container.registerSingleton("DeletarProdutoAdapter", FakeDeletarProduto);
+    container.registerSingleton("EditarProdutoAdapter", FakeEditarProduto);
   });
 
   afterAll(() => {
@@ -87,5 +89,35 @@ describe("Produto controller", () => {
 
     expect(mockResponse.status).toHaveBeenCalledWith(404);
     expect(mockResponse.send).toHaveBeenCalled();
+  });
+
+  it("Deve fazer requisição de editar com sucesso", async () => {
+    const produto = {
+      nome: "Lápis",
+      descricao: "Lápis de colorir",
+      preco: 0.25,
+    };
+
+    const mockRequest = getMockReq({ body: produto, params: { id: "1" } });
+
+    await produtoController.editar(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledWith({ id: 1, ...produto });
+    expect(mockResponse.status).toHaveBeenCalledWith(200);
+  });
+
+  it("Deve fazer requisição de editar e não encontrar o produto", async () => {
+    const produto = {
+      nome: "Lápis",
+      descricao: "Lápis de colorir",
+      preco: 0.25,
+    };
+
+    const mockRequest = getMockReq({ body: produto, params: { id: "2" } });
+
+    await produtoController.editar(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledWith(
+      "Não foi encontrado nenhum produto"
+    );
+    expect(mockResponse.status).toHaveBeenCalledWith(404);
   });
 });
