@@ -1,12 +1,13 @@
 import ListarProdutosPort from "../../application/ports/out/ListarProdutosPort";
 import { Produto } from "../../application/core/domain/Produto";
 import ProdutoRepository from "./repository/ProdutoRepository";
+import { Erro } from "../../application/core/domain/Erro";
 
 export class ListarProdutoAdapter implements ListarProdutosPort {
   constructor() {
     this.listar = this.listar.bind(this);
   }
-  listar = async (): Promise<Array<Produto>> => {
+  listar = async (): Promise<Array<Produto> | Erro> => {
     try {
       const produtos = await ProdutoRepository.listar();
       return produtos.map((produto) => {
@@ -17,8 +18,11 @@ export class ListarProdutoAdapter implements ListarProdutosPort {
           preco: produto.preco,
         };
       });
-    } catch (error) {
-      throw error;
+    } catch (erro) {
+      return {
+        mensagem: "Não foi possível listar os produtos",
+        status: 400,
+      };
     }
   };
 }

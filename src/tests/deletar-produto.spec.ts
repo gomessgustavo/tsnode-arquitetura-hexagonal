@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import { Produto } from "../application/core/domain/Produto";
 import { FakeDeletarProduto } from "./fakes/FakeDeletarProduto";
 import { DeletarProdutoService } from "../application/core/service/DeletarProdutoService";
+import { Erro } from "../application/core/domain/Erro";
 
 let fakeDeletarProduto: FakeDeletarProduto;
 let service: DeletarProdutoService;
@@ -21,6 +21,9 @@ describe("Deletar produto", () => {
 
   it("Deve tentar deletar um produto não existente", async () => {
     const retorno = await service.deletar(2);
-    expect(retorno).toBe(0);
+    const erro = retorno as Erro;
+
+    expect(erro.status).toBe(404);
+    expect(erro.mensagem).toBe("Não foi possível deletar o produto");
   });
 });

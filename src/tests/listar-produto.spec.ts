@@ -12,8 +12,7 @@ describe("Listagem de produto", () => {
   });
 
   it("Deve listar produtos com sucesso", async () => {
-    const TAMANHO_ARRAY_ESPERADO = 0;
     const retorno = await service.listar();
-    expect(retorno.length).toBe(TAMANHO_ARRAY_ESPERADO);
+    expect(retorno).toStrictEqual([]);
   });
 });

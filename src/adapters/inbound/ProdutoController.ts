@@ -14,14 +14,17 @@ export class ProdutoController {
     const salvarProdutoService = container.resolve(SalvarProdutoService);
     const { body }: Request = req;
     const produto = body as Produto;
-    salvarProdutoService.criar(produto);
-    res.status(201).send(produto);
+    const produtoCriado = await salvarProdutoService.criar(produto);
+    const formataResponse = getResponse(produtoCriado, 201);
+    res.status(formataResponse.status).send(formataResponse.data);
   }
 
   async listagem(_: Request, res: Response): Promise<void> {
     const listarProdutosService = container.resolve(ListarProdutoService);
     const produtos = await listarProdutosService.listar();
-    res.send(produtos);
+
+    const formataResponse = getResponse(produtos);
+    res.status(formataResponse.status).send(formataResponse.data);
   }
 
   async porId(req: Request, res: Response): Promise<void> {
@@ -30,8 +33,8 @@ export class ProdutoController {
     const produtoId = parseInt(id) | 0;
     const produto = await procurarProdutoService.procurar(produtoId);
 
-    const status = produto ? 200 : 404;
-    res.status(status).send(produto);
+    const formataResponse = getResponse(produto);
+    res.status(formataResponse.status).send(formataResponse.data);
   }
 
   async deletar(req: Request, res: Response): Promise<void> {
@@ -39,8 +42,8 @@ export class ProdutoController {
     const { id } = req.params;
     const produtoId = parseInt(id) | 0;
     const response = await deletarProdutoService.deletar(produtoId);
-    const status = response ? 204 : 404;
-    res.status(status).send();
+    const formataResponse = getResponse(response, 204);
+    res.status(formataResponse.status).send();
   }
 
   async editar(req: Request, res: Response): Promise<void> {

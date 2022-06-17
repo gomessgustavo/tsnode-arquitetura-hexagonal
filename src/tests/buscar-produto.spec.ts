@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import { Erro } from "../application/core/domain/Erro";
 import { ProcurarProdutoService } from "../application/core/service/ProcurarProdutoService";
 import { FakeBuscarProduto } from "./fakes/FakeBuscarProduto";
 
@@ -22,6 +23,8 @@ describe("Buscar produto por id", () => {
     const id = 2;
     const retorno = await service.procurar(id);
 
-    expect(retorno).toBeNull();
+    const erro = retorno as Erro;
+    expect(erro.status).toBe(404);
+    expect(erro.mensagem).toBe("Não foi encontrado nenhum produto com o id");
   });
 });

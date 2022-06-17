@@ -1,5 +1,6 @@
 import DeletarProdutoPort from "../../application/ports/out/DeletarProdutoPort";
 import { Produto } from "../../application/core/domain/Produto";
+import { Erro } from "../../application/core/domain/Erro";
 
 export class FakeDeletarProduto implements DeletarProdutoPort {
   private produtos: Produto[] = [
@@ -9,7 +10,7 @@ export class FakeDeletarProduto implements DeletarProdutoPort {
     this.deletar = this.deletar.bind(this);
   }
 
-  deletar = async (produtoId: number): Promise<number> => {
+  deletar = async (produtoId: number): Promise<number | Erro> => {
     const temProduto = this.produtos.some(({ id }) => id === produtoId);
 
     if (temProduto) {
@@ -18,7 +19,10 @@ export class FakeDeletarProduto implements DeletarProdutoPort {
       );
       return produtoId;
     } else {
-      return 0;
+      return {
+        mensagem: "Não foi possível deletar o produto",
+        status: 404,
+      };
     }
   };
 }

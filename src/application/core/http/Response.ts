@@ -2,23 +2,25 @@ import { Erro } from "../domain/Erro";
 import { Produto } from "../domain/Produto";
 
 class ResponseProduto {
-  data: Produto | string;
+  data: Produto | Produto[] | string | number;
   status: number;
 }
 
-function isErro(produto: Erro | Produto): produto is Erro {
+function isErro(produto: Erro | Produto | Produto[] | number): produto is Erro {
   return (<Erro>produto).mensagem !== undefined;
 }
 
-export const getResponse = (produto: Produto | Erro): ResponseProduto => {
+export const getResponse = (
+  produto: Produto | Produto[] | Erro | number,
+  statusSucesso?: number
+): ResponseProduto => {
   const response = new ResponseProduto();
-  console.log(produto instanceof Produto);
   if (isErro(produto)) {
     response.data = produto.mensagem;
     response.status = produto.status;
   } else {
     response.data = produto;
-    response.status = 200;
+    response.status = statusSucesso || 200;
   }
 
   return response;

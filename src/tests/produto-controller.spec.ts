@@ -38,7 +38,7 @@ describe("Produto controller", () => {
     const mockRequest = getMockReq({ body: produto });
 
     await produtoController.salvar(mockRequest, mockResponse);
-    expect(mockResponse.send).toHaveBeenCalledWith(produto);
+    expect(mockResponse.send).toHaveBeenCalled();
     expect(mockResponse.status).toHaveBeenCalledWith(201);
   });
 
