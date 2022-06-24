@@ -19,7 +19,7 @@ Produto.init(
   {
     nome: Sequelize.STRING,
     descricao: Sequelize.STRING,
-    preco: Sequelize.BOOLEAN,
+    preco: Sequelize.BIGINT,
   },
   {
     sequelize: database.connection,
