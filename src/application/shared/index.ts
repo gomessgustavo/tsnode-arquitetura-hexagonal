@@ -9,6 +9,10 @@ import ProcurarProdutoPort from "../ports/out/ProcurarProdutoPort";
 import { ProcurarProdutoAdapter } from "../../adapters/outbound/ProcurarProdutoAdapter";
 import EditarProdutoPort from "../ports/out/EditarProdutoPort";
 import { EditarProdutoAdapter } from "../../adapters/outbound/EditarProdutoAdapter";
+import SalvarUsuarioPort from "../ports/out/SalvarUsuarioPort";
+import { SalvarUsuarioAdapter } from "../../adapters/outbound/SalvarUsuarioAdapter";
+import BuscarCepPort from "../ports/out/BuscarCepPort";
+import { BuscarCepAdapter } from "../../adapters/outbound/BuscarCepAdapter";
 
 container.registerSingleton<SalvarProdutoPort>(
   "SalvarProdutoAdapter",
@@ -33,4 +37,14 @@ container.registerSingleton<ProcurarProdutoPort>(
 container.registerSingleton<EditarProdutoPort>(
   "EditarProdutoAdapter",
   EditarProdutoAdapter
+);
+
+container.registerSingleton<SalvarUsuarioPort>(
+  "SalvarUsuarioAdapter",
+  SalvarUsuarioAdapter
+);
+
+container.registerSingleton<BuscarCepPort>(
+  "BuscarCepAdapter",
+  BuscarCepAdapter
 );
