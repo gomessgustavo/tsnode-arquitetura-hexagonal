@@ -8,13 +8,20 @@ import { DeletarProdutoService } from "../../application/core/service/DeletarPro
 import { ProcurarProdutoService } from "../../application/core/service/ProcurarProdutoService";
 import { EditarProdutoService } from "../../application/core/service/EditarProdutoService";
 import { getResponse } from "../../application/core/http/Response";
+import { CriarProdutoRequest } from "./request/CriarProdutoRequest";
+import { TypedRequest } from "./request/Request";
+import ProdutoMapper from "./mapper/ProdutoMapper";
 
 export class ProdutoController {
-  async salvar(req: Request, res: Response): Promise<void> {
+  async salvar(
+    req: TypedRequest<CriarProdutoRequest>,
+    res: Response
+  ): Promise<void> {
     const salvarProdutoService = container.resolve(SalvarProdutoService);
-    const { body }: Request = req;
-    const produto = body as Produto;
-    const produtoCriado = await salvarProdutoService.criar(produto);
+    const { body } = req;
+
+    const produtoMapeado = ProdutoMapper.toEntity(body);
+    const produtoCriado = await salvarProdutoService.criar(produtoMapeado);
     const formataResponse = getResponse(produtoCriado, 201);
     res.status(formataResponse.status).send(formataResponse.data);
   }
