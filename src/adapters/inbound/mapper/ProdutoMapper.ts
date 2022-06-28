@@ -1,9 +1,8 @@
-import { CriarProdutoRequest } from "../request/CriarProdutoRequest";
+import { ProdutoRequest } from "../request/ProdutoRequest";
 import { Produto } from "../../../application/core/domain/Produto";
-import { ObjectMapper } from "json-object-mapper";
 
 class ProdutoMapper {
-  toEntity = (produto: CriarProdutoRequest): Produto => {
+  toEntity = (produto: ProdutoRequest): Produto => {
     const produtoNovo = new Produto();
     return Object.assign(produtoNovo, produto);
   };

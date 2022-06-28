@@ -8,13 +8,13 @@ import { DeletarProdutoService } from "../../application/core/service/DeletarPro
 import { ProcurarProdutoService } from "../../application/core/service/ProcurarProdutoService";
 import { EditarProdutoService } from "../../application/core/service/EditarProdutoService";
 import { getResponse } from "../../application/core/http/Response";
-import { CriarProdutoRequest } from "./request/CriarProdutoRequest";
+import { ProdutoRequest } from "./request/ProdutoRequest";
 import { TypedRequest } from "./request/Request";
 import ProdutoMapper from "./mapper/ProdutoMapper";
 
 export class ProdutoController {
   async salvar(
-    req: TypedRequest<CriarProdutoRequest>,
+    req: TypedRequest<ProdutoRequest>,
     res: Response
   ): Promise<void> {
     const salvarProdutoService = container.resolve(SalvarProdutoService);
@@ -53,11 +53,18 @@ export class ProdutoController {
     res.status(formataResponse.status).send();
   }
 
-  async editar(req: Request, res: Response): Promise<void> {
+  async editar(
+    req: TypedRequest<ProdutoRequest>,
+    res: Response
+  ): Promise<void> {
     const editarProdutoService = container.resolve(EditarProdutoService);
     const { id } = req.params;
     const produtoId = parseInt(id) | 0;
-    const response = await editarProdutoService.editar(produtoId, req.body);
+    const produtoMapeado = ProdutoMapper.toEntity(req.body);
+    const response = await editarProdutoService.editar(
+      produtoId,
+      produtoMapeado
+    );
     const formataResponse = getResponse(response);
     res.status(formataResponse.status).send(formataResponse.data);
   }
