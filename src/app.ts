@@ -1,8 +1,6 @@
 import express from "express";
 import cors from "cors";
 
-import database from "./database";
-
 import routes from "./routes";
 
 class App {
@@ -13,7 +11,6 @@ class App {
 
     this.middlewares();
     this.routes();
-    this.database();
   }
 
   private middlewares(): void {
@@ -23,15 +20,6 @@ class App {
 
   private routes(): void {
     this.servidor.use(routes);
-  }
-
-  private async database(): Promise<void> {
-    const { connection } = database;
-    try {
-      await connection.sync();
-    } catch (erro) {
-      console.log(erro);
-    }
   }
 }
 

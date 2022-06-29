@@ -15,7 +15,7 @@ export class FakeCriarProduto implements SalvarProdutoPort {
       nome: produto.nome,
       descricao: produto.descricao,
       preco: produto.preco,
-    });
+    });a
     this.produtos.push(novoProduto);
 
     return novoProduto;

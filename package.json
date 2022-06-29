@@ -7,7 +7,8 @@
     "build": "sucrase ./src -d ./dist --transforms typescript,imports",
     "start": "nodemon -L src/server.ts",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\"",
-    "test": "jest"
+    "test": "jest",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js --config ./src/database/ormconfig_cli.ts"
   },
   "author": "",
   "license": "ISC",
@@ -35,8 +36,13 @@
     "sucrase": "^3.21.0",
     "ts-jest": "^25.4.0",
     "ts-node": "^10.8.1",
+    "ts-node-dev": "^2.0.0",
     "tsyringe": "^4.7.0",
+    "typeorm": "^0.2.24",
     "typescript": "^3.8.3",
     "uuidv4": "^6.2.13"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
   }
 }

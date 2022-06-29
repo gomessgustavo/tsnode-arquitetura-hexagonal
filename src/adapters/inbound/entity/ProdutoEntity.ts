@@ -1,30 +1,18 @@
-import Sequelize, { Model } from "sequelize";
-import database from "../../../database";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-class Produto extends Model {
-  public id!: number;
+@Entity("Produto")
+export class Produto {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  public nome: string;
+  @Column()
+  nome: string;
 
-  public descricao?: string;
+  @Column()
+  descricao: string;
 
-  public preco: number;
-
-  public readonly createdAt!: Date;
-
-  public readonly updatedAt!: Date;
+  @Column()
+  preco: number;
 }
-
-Produto.init(
-  {
-    nome: Sequelize.STRING,
-    descricao: Sequelize.STRING,
-    preco: Sequelize.BIGINT,
-  },
-  {
-    sequelize: database.connection,
-    freezeTableName: true,
-  }
-);
 
 export default Produto;
