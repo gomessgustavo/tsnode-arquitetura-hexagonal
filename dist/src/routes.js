@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const ProdutoController_1 = require("./adapters/inbound/ProdutoController");
+const express_1 = require("express");
+const UsuarioController_1 = require("./adapters/inbound/UsuarioController");
+const routes = express_1.Router();
+const produtoController = new ProdutoController_1.ProdutoController();
+const usuarioController = new UsuarioController_1.UsuarioController();
+routes.post("/produto", produtoController.salvar);
+routes.get("/produto", produtoController.listagem);
+routes.get("/produto/:id", produtoController.porId);
+routes.delete("/produto/:id", produtoController.deletar);
+routes.put("/produto/:id", produtoController.editar);
+routes.post("/usuario", usuarioController.salvar);
+exports.default = routes;

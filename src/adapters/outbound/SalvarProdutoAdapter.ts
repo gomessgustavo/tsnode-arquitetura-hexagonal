@@ -9,8 +9,10 @@ export class SalvarProdutoAdapter implements SalvarProdutoPort {
   }
   criar = async (produto: Produto): Promise<Produto | Erro> => {
     try {
-      return await ProdutoRepository.salvar(produto);
+      // const produtoNovo = ProdutoRepository.create(produto);
+      return ProdutoRepository.create(produto);
     } catch (erro) {
+      console.log(erro);
       return {
         mensagem: "Não foi possível criar um produto novo",
         status: 400,

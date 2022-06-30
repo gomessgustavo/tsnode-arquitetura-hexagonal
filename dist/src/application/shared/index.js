@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tsyringe_1 = require("tsyringe");
+const SalvarProdutoAdapter_1 = require("../../adapters/outbound/SalvarProdutoAdapter");
+const ListarProdutoAdapter_1 = require("../../adapters/outbound/ListarProdutoAdapter");
+const DeletarProdutoAdapter_1 = require("../../adapters/outbound/DeletarProdutoAdapter");
+const ProcurarProdutoAdapter_1 = require("../../adapters/outbound/ProcurarProdutoAdapter");
+const EditarProdutoAdapter_1 = require("../../adapters/outbound/EditarProdutoAdapter");
+const SalvarUsuarioAdapter_1 = require("../../adapters/outbound/SalvarUsuarioAdapter");
+const BuscarCepAdapter_1 = require("../../adapters/outbound/BuscarCepAdapter");
+tsyringe_1.container.registerSingleton("SalvarProdutoAdapter", SalvarProdutoAdapter_1.SalvarProdutoAdapter);
+tsyringe_1.container.registerSingleton("ListarProdutoAdapter", ListarProdutoAdapter_1.ListarProdutoAdapter);
+tsyringe_1.container.registerSingleton("DeletarProdutoAdapter", DeletarProdutoAdapter_1.DeletarProdutoAdapter);
+tsyringe_1.container.registerSingleton("ProcurarProdutoAdapter", ProcurarProdutoAdapter_1.ProcurarProdutoAdapter);
+tsyringe_1.container.registerSingleton("EditarProdutoAdapter", EditarProdutoAdapter_1.EditarProdutoAdapter);
+tsyringe_1.container.registerSingleton("SalvarUsuarioAdapter", SalvarUsuarioAdapter_1.SalvarUsuarioAdapter);
+tsyringe_1.container.registerSingleton("BuscarCepAdapter", BuscarCepAdapter_1.BuscarCepAdapter);

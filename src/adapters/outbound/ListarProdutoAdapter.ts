@@ -9,7 +9,7 @@ export class ListarProdutoAdapter implements ListarProdutosPort {
   }
   listar = async (): Promise<Array<Produto> | Erro> => {
     try {
-      const produtos = await ProdutoRepository.listar();
+      const produtos = await ProdutoRepository.find();
       return produtos.map((produto) => {
         return {
           id: produto.id,
@@ -19,6 +19,7 @@ export class ListarProdutoAdapter implements ListarProdutosPort {
         };
       });
     } catch (erro) {
+      console.log(erro);
       return {
         mensagem: "Não foi possível listar os produtos",
         status: 400,

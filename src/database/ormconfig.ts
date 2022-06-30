@@ -3,7 +3,6 @@ import Usuario from "../adapters/inbound/entity/UsuarioEntity";
 import Veiculo from "../adapters/inbound/entity/VeiculoEntity";
 
 export default {
-  driver: "sqlite3",
   type: "sqlite",
   database: "./src/database/database.sqlite",
   synchronize: true,

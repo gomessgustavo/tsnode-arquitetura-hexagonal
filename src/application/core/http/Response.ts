@@ -15,7 +15,11 @@ export const getResponse = (
 ): Response => {
   const response = new Response();
   if (isErro(objeto)) {
-    response.data = objeto.mensagem;
+    response.data = {
+      erro: {
+        mensagem: objeto.mensagem,
+      },
+    };
     response.status = objeto.status;
   } else {
     response.data = objeto;
