@@ -1,18 +1,34 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import Sequelize, {
+  Column,
+  CreatedAt,
+  IsUUID,
+  Model,
+  PrimaryKey,
+  Table,
+  UpdatedAt,
+} from "sequelize-typescript";
 
-@Entity("Produto")
-export class Produto {
-  @PrimaryGeneratedColumn()
+@Table
+class Produto extends Model {
+  @IsUUID(4)
+  @PrimaryKey
+  @Column
   id: number;
 
-  @Column()
+  @Column
   nome: string;
 
-  @Column()
+  @Column
   descricao: string;
 
-  @Column()
+  @Column
   preco: number;
+
+  @CreatedAt
+  createdAt: Date;
+
+  @UpdatedAt
+  updatedAt: Date;
 }
 
 export default Produto;

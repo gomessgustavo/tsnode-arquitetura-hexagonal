@@ -9,7 +9,7 @@ export class ProcurarProdutoAdapter implements ProcurarProdutoPort {
   }
   procurar = async (produtoId: number): Promise<Produto | Erro> => {
     try {
-      const produto = await ProdutoRepository.findOne(produtoId);
+      const produto = await ProdutoRepository.porId(produtoId);
       if (produto) return produto;
       return {
         mensagem: "Não foi encontrado nenhum produto com o id",

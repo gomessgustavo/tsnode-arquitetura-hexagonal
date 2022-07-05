@@ -9,7 +9,7 @@ export class ListarProdutoAdapter implements ListarProdutosPort {
   }
   listar = async (): Promise<Array<Produto> | Erro> => {
     try {
-      const produtos = await ProdutoRepository.find();
+      const produtos = await ProdutoRepository.listar();
       return produtos.map((produto) => {
         return {
           id: produto.id,

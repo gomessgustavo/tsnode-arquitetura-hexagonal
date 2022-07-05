@@ -9,8 +9,7 @@ export class SalvarProdutoAdapter implements SalvarProdutoPort {
   }
   criar = async (produto: Produto): Promise<Produto | Erro> => {
     try {
-      // const produtoNovo = ProdutoRepository.create(produto);
-      return ProdutoRepository.create(produto);
+      return ProdutoRepository.salvar(produto);
     } catch (erro) {
       console.log(erro);
       return {

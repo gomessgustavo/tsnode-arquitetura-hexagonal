@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import "./application/shared";
-import "./database/index";
 import app from "./app";
 const PORTA = 3000;
 

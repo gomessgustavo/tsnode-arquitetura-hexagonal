@@ -1,33 +1,54 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import Sequelize, {
+  Column,
+  CreatedAt,
+  HasMany,
+  IsUUID,
+  Model,
+  PrimaryKey,
+  Table,
+  UpdatedAt,
+} from "sequelize-typescript";
+import Veiculo from "./VeiculoEntity";
 
-@Entity("Usuario")
-export class Usuario {
-  @PrimaryGeneratedColumn()
+@Table
+class Usuario extends Model {
+  @IsUUID(4)
+  @PrimaryKey
+  @Column
   id: number;
 
-  @Column()
+  @Column
   nome: string;
 
-  @Column()
+  @Column
   idade: number;
 
-  @Column()
+  @Column
   cep: string;
 
-  @Column()
+  @Column
   logradouro: string;
 
-  @Column()
+  @Column
   complemento: string;
 
-  @Column()
+  @Column
   bairro: string;
 
-  @Column()
+  @Column
   localidade: string;
 
-  @Column()
+  @Column
   uf: string;
+
+  @HasMany(() => Veiculo)
+  veiculos: Veiculo[];
+
+  @CreatedAt
+  createdAt: Date;
+
+  @UpdatedAt
+  updatedAt: Date;
 }
 
 export default Usuario;

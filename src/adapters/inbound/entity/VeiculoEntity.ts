@@ -1,31 +1,37 @@
 import {
+  BelongsTo,
   Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+  ForeignKey,
+  IsUUID,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import Usuario from "./UsuarioEntity";
 
-@Entity("Veiculo")
-export class Veiculo {
-  @PrimaryGeneratedColumn()
+@Table
+export class Veiculo extends Model {
+  @IsUUID(4)
+  @PrimaryKey
+  @Column
   id: number;
 
-  @Column()
+  @Column
   modelo: string;
 
-  @Column()
+  @Column
   ano: string;
 
-  @Column()
+  @Column
   placa: string;
 
-  @Column()
+  @Column
   quilometragem: string;
 
-  @ManyToOne(() => Usuario, { eager: true })
-  @JoinColumn({ name: "usuario_id" })
+  @ForeignKey(() => Usuario)
+  usuarioId: number;
+
+  @BelongsTo(() => Usuario)
   usuario: Usuario;
 }
 

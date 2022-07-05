@@ -1,17 +1,23 @@
-import { getRepository, Repository } from "typeorm";
-import Produto from "../../inbound/entity/ProdutoEntity";
+import { Produto } from "../../../application/core/domain/Produto";
+import ProdutoEntity from "../../inbound/entity/ProdutoEntity";
 
 class ProdutoRepository {
-  private repository: Repository<Produto>;
-  constructor() {
-    this.repository = getRepository(Produto);
-  }
+  salvar = async (produto: Produto): Promise<ProdutoEntity> => {
+    const [produtoSalvo] = await ProdutoEntity.upsert({ ...produto });
+    return produtoSalvo;
+  };
 
-  public async create(produto: Produto): Promise<Produto> {
-    const newProduto = this.repository.create(produto);
-    await this.repository.save(newProduto);
-    return newProduto;
-  }
+  listar = (): Promise<Array<ProdutoEntity>> => {
+    return ProdutoEntity.findAll();
+  };
+
+  porId = (produtoId: number): Promise<ProdutoEntity | null> => {
+    return ProdutoEntity.findByPk(produtoId);
+  };
+
+  deletar = (produtoId: number): Promise<number> => {
+    return ProdutoEntity.destroy({ where: { id: produtoId } });
+  };
 }
 
 export default new ProdutoRepository();
