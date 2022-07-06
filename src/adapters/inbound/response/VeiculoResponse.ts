@@ -1,4 +1,5 @@
-export class VeiculoRequest {
+export class VeiculoResponse {
+  id: number;
   modelo: string;
   ano: number;
   placa: string;

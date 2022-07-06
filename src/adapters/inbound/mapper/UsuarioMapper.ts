@@ -2,6 +2,7 @@ import { Usuario } from "../../../application/core/domain/Usuario";
 import UsuarioEntity from "../entity/UsuarioEntity";
 import { UsuarioRequest } from "../request/UsuarioRequest";
 import { UsuarioResponse } from "../response/UsuarioResponse";
+import VeiculoMapper from "./VeiculoMapper";
 
 class UsuarioMapper {
   toEntity = (request: UsuarioRequest): Usuario => {
@@ -26,7 +27,7 @@ class UsuarioMapper {
     usuario.localidade = entity.localidade;
     usuario.logradouro = entity.logradouro;
     usuario.uf = entity.uf;
-    usuario.veiculos = entity.veiculos;
+    usuario.veiculos = VeiculoMapper.toResponseVeiculos(entity.veiculos);
 
     return usuario;
   };

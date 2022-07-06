@@ -7,10 +7,13 @@ import {
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
+import { Veiculo } from "../../../application/core/domain/Veiculo";
 import Usuario from "./UsuarioEntity";
 
-@Table
-export class Veiculo extends Model {
+@Table({
+  tableName: "veiculo",
+})
+export class VeiculoEntity extends Model<Veiculo> {
   @IsUUID(4)
   @PrimaryKey
   @Column
@@ -35,4 +38,4 @@ export class Veiculo extends Model {
   usuario: Usuario;
 }
 
-export default Veiculo;
+export default VeiculoEntity;

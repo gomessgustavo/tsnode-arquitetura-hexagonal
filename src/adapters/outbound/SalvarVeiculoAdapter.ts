@@ -1,6 +1,7 @@
 import { Erro } from "../../application/core/domain/Erro";
 import { Veiculo } from "../../application/core/domain/Veiculo";
 import SalvarVeiculoPort from "../../application/ports/out/SalvarVeiculoPort";
+import { VeiculoResponse } from "../inbound/response/VeiculoResponse";
 import UsuarioRepository from "./repository/UsuarioRepository";
 import VeiculoRepository from "./repository/VeiculoRepository";
 
@@ -11,7 +12,7 @@ export class SalvarVeiculoAdapter implements SalvarVeiculoPort {
   criar = async (
     usuarioId: number,
     veiculo: Veiculo
-  ): Promise<Veiculo | Erro> => {
+  ): Promise<VeiculoResponse | Erro> => {
     try {
       const usuarioPorId = await UsuarioRepository.porId(usuarioId);
       if (!usuarioPorId) {

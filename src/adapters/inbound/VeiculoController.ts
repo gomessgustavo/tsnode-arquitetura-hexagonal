@@ -4,11 +4,11 @@ import { getResponse } from "../../application/core/http/Response";
 import { SalvarVeiculoService } from "../../application/core/service/SalvarVeiculoService";
 import VeiculoMapper from "./mapper/VeiculoMapper";
 import { TypedRequest } from "./request/Request";
-import { UsuarioRequest } from "./request/UsuarioRequest";
+import { VeiculoRequest } from "./request/VeiculoRequest";
 
 export class VeiculoController {
   async salvar(
-    req: TypedRequest<UsuarioRequest>,
+    req: TypedRequest<VeiculoRequest>,
     res: Response
   ): Promise<void> {
     const salvarVeiculoService = container.resolve(SalvarVeiculoService);

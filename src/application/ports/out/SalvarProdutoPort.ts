@@ -1,8 +1,9 @@
+import { ProdutoRequest } from "../../../adapters/inbound/request/ProdutoRequest";
+import { ProdutoResponse } from "../../../adapters/inbound/response/ProdutoResponse";
 import { Erro } from "../../core/domain/Erro";
-import { Produto } from "../../core/domain/Produto";
 
 interface SalvarProdutoPort {
-  criar(produto: Produto): Promise<Produto | Erro>;
+  criar(produto: ProdutoRequest): Promise<ProdutoResponse | Erro>;
 }
 
 export default SalvarProdutoPort;

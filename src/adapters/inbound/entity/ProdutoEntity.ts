@@ -7,10 +7,13 @@ import {
   Table,
   UpdatedAt,
 } from "sequelize-typescript";
+import { Produto } from "../../../application/core/domain/Produto";
 import database from "../../../database";
 
-@Table
-class Produto extends Model {
+@Table({
+  tableName: "produto",
+})
+class ProdutoEntity extends Model<Produto> {
   @IsUUID(4)
   @PrimaryKey
   @Column
@@ -31,5 +34,7 @@ class Produto extends Model {
   @UpdatedAt
   updatedAt: Date;
 }
-
-export default Produto;
+({
+  tableName: "produto",
+});
+export default ProdutoEntity;

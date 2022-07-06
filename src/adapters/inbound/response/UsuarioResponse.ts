@@ -1,4 +1,4 @@
-import Veiculo from "../entity/VeiculoEntity";
+import { VeiculoResponse } from "./VeiculoResponse";
 
 export class UsuarioResponse {
   nome: string;
@@ -9,5 +9,5 @@ export class UsuarioResponse {
   bairro: string;
   localidade: string;
   uf: string;
-  veiculos: Veiculo[];
+  veiculos: VeiculoResponse[];
 }
