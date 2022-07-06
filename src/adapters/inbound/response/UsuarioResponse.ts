@@ -1,6 +1,6 @@
-import Veiculo from "../../../adapters/inbound/entity/VeiculoEntity";
+import Veiculo from "../entity/VeiculoEntity";
 
-export class Usuario {
+export class UsuarioResponse {
   nome: string;
   idade: number;
   cep: string;
@@ -9,6 +9,5 @@ export class Usuario {
   bairro: string;
   localidade: string;
   uf: string;
-  senha: string;
   veiculos: Veiculo[];
 }

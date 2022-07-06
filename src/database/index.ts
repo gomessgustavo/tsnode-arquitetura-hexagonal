@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
+import entity from "../adapters/inbound/entity";
 import config from "./SequelizeConfig";
 
 class Database {

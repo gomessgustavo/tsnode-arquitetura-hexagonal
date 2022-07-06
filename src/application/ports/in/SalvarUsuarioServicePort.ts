@@ -1,6 +1,7 @@
+import { UsuarioRequest } from "../../../adapters/inbound/request/UsuarioRequest";
+import { UsuarioResponse } from "../../../adapters/inbound/response/UsuarioResponse";
 import { Erro } from "../../core/domain/Erro";
-import { Usuario } from "../../core/domain/Usuario";
 
 export interface SalvarUsuarioServicePort {
-  criar(usuario: Usuario): Promise<Usuario | Erro>;
+  criar(usuario: UsuarioRequest): Promise<UsuarioResponse | Erro>;
 }

@@ -1,4 +1,4 @@
-import Sequelize, {
+import {
   Column,
   CreatedAt,
   IsUUID,
@@ -7,6 +7,7 @@ import Sequelize, {
   Table,
   UpdatedAt,
 } from "sequelize-typescript";
+import database from "../../../database";
 
 @Table
 class Produto extends Model {

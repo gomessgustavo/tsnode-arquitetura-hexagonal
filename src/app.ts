@@ -3,7 +3,7 @@ import cors from "cors";
 import database from "./database";
 import routes from "./routes";
 
-const RESET_DB = true;
+const RESET_DB = false;
 
 class App {
   public servidor: express.Application;

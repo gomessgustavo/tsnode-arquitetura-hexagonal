@@ -3,8 +3,8 @@ import { SalvarUsuarioServicePort } from "../../ports/in/SalvarUsuarioServicePor
 import BuscarCepPort from "../../ports/out/BuscarCepPort";
 import SalvarUsuarioPort from "../../ports/out/SalvarUsuarioPort";
 import { Usuario } from "../domain/Usuario";
-import ObjectMapper from "object-mapper";
-
+import { genSaltSync, hashSync } from "bcrypt";
+const SALT_ROUND = 10;
 @injectable()
 export class SalvarUsuarioService implements SalvarUsuarioServicePort {
   constructor(
@@ -17,6 +17,11 @@ export class SalvarUsuarioService implements SalvarUsuarioServicePort {
     this.criar = this.criar.bind(this);
   }
 
+  private hash = (senha: string) => {
+    const salt = genSaltSync(SALT_ROUND);
+    return hashSync(senha, salt);
+  };
+
   criar = async (usuario: Usuario) => {
     const somenteNumerosCep = usuario.cep.replace(/\D/g, "");
     const endereco = await this.buscarCepPort.buscar(somenteNumerosCep);
@@ -26,6 +31,7 @@ export class SalvarUsuarioService implements SalvarUsuarioServicePort {
     usuario.localidade = endereco.localidade;
     usuario.logradouro = endereco.logradouro;
     usuario.uf = endereco.uf;
+    usuario.senha = this.hash(usuario.senha);
 
     return this.salvarUsuarioPort.criar(usuario);
   };

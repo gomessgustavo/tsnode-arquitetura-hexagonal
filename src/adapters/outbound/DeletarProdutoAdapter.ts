@@ -6,7 +6,7 @@ export class DeletarProdutoAdapter implements DeletarProdutoPort {
   constructor() {
     this.deletar = this.deletar.bind(this);
   }
-  deletar = async (produtoId: number): Promise<Number | Erro> => {
+  deletar = async (produtoId: number): Promise<number | Erro> => {
     try {
       return await ProdutoRepository.deletar(produtoId);
     } catch (erro) {

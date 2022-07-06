@@ -13,6 +13,10 @@ import SalvarUsuarioPort from "../ports/out/SalvarUsuarioPort";
 import { SalvarUsuarioAdapter } from "../../adapters/outbound/SalvarUsuarioAdapter";
 import BuscarCepPort from "../ports/out/BuscarCepPort";
 import { BuscarCepAdapter } from "../../adapters/outbound/BuscarCepAdapter";
+import SalvarVeiculoPort from "../ports/out/SalvarVeiculoPort";
+import { SalvarVeiculoAdapter } from "../../adapters/outbound/SalvarVeiculoAdapter";
+import BuscarUsuarioPort from "../ports/out/BuscarUsuarioPort";
+import { BuscarUsuarioAdapter } from "../../adapters/outbound/BuscarUsuarioAdapter";
 
 container.registerSingleton<SalvarProdutoPort>(
   "SalvarProdutoAdapter",
@@ -47,4 +51,14 @@ container.registerSingleton<SalvarUsuarioPort>(
 container.registerSingleton<BuscarCepPort>(
   "BuscarCepAdapter",
   BuscarCepAdapter
+);
+
+container.registerSingleton<SalvarVeiculoPort>(
+  "SalvarVeiculoAdapter",
+  SalvarVeiculoAdapter
+);
+
+container.registerSingleton<BuscarUsuarioPort>(
+  "BuscarUsuarioAdapter",
+  BuscarUsuarioAdapter
 );

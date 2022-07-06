@@ -1,4 +1,4 @@
-import Sequelize, {
+import {
   Column,
   CreatedAt,
   HasMany,
@@ -8,10 +8,13 @@ import Sequelize, {
   Table,
   UpdatedAt,
 } from "sequelize-typescript";
+import { Usuario } from "../../../application/core/domain/Usuario";
 import Veiculo from "./VeiculoEntity";
 
-@Table
-class Usuario extends Model {
+@Table({
+  tableName: "usuario",
+})
+class UsuarioEntity extends Model<Usuario> {
   @IsUUID(4)
   @PrimaryKey
   @Column
@@ -19,6 +22,9 @@ class Usuario extends Model {
 
   @Column
   nome: string;
+
+  @Column
+  senha: string;
 
   @Column
   idade: number;
@@ -41,7 +47,7 @@ class Usuario extends Model {
   @Column
   uf: string;
 
-  @HasMany(() => Veiculo)
+  @HasMany(() => Veiculo, "usuarioId")
   veiculos: Veiculo[];
 
   @CreatedAt
@@ -51,4 +57,4 @@ class Usuario extends Model {
   updatedAt: Date;
 }
 
-export default Usuario;
+export default UsuarioEntity;

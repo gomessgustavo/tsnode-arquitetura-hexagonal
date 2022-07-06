@@ -20,7 +20,7 @@ export class Veiculo extends Model {
   modelo: string;
 
   @Column
-  ano: string;
+  ano: number;
 
   @Column
   placa: string;
