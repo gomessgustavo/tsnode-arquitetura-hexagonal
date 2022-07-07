@@ -1,5 +1,4 @@
 import { Usuario } from "../../../application/core/domain/Usuario";
-import UsuarioEntity from "../entity/UsuarioEntity";
 import { UsuarioRequest } from "../request/UsuarioRequest";
 import { UsuarioResponse } from "../response/UsuarioResponse";
 import VeiculoMapper from "./VeiculoMapper";
@@ -16,9 +15,8 @@ class UsuarioMapper {
     return usuario;
   };
 
-  toResponse = (entity: UsuarioEntity): UsuarioResponse => {
+  toResponse = (entity: Usuario): UsuarioResponse => {
     const usuario = new UsuarioResponse();
-
     usuario.nome = entity.nome;
     usuario.bairro = entity.bairro;
     usuario.cep = entity.cep;

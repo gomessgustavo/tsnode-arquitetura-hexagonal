@@ -7,14 +7,11 @@ export class SalvarUsuarioAdapter implements SalvarUsuarioPort {
   constructor() {
     this.criar = this.criar.bind(this);
   }
-  criar = async (usuario: Usuario): Promise<Usuario | Erro> => {
+  criar = async (usuario: Usuario): Promise<Usuario> => {
     try {
       return await UsuarioRepository.salvar(usuario);
     } catch (erro) {
-      return {
-        mensagem: "Não foi possível criar um produto novo",
-        status: 400,
-      };
+      throw erro;
     }
   };
 }

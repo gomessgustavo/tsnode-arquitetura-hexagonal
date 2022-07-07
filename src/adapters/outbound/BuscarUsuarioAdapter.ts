@@ -18,7 +18,7 @@ export class BuscarUsuarioAdapter implements BuscarUsuarioPort {
       return response;
     } catch (error) {
       console.log(error);
-      return { mensagem: "Não foi encontrado o produto", status: 400 };
+      return { mensagem: "Não foi encontrado o usuário", status: 400 };
     }
   };
 }

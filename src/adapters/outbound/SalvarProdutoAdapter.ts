@@ -1,21 +1,18 @@
 import { Erro } from "../../application/core/domain/Erro";
 import { Produto } from "../../application/core/domain/Produto";
 import SalvarProdutoPort from "../../application/ports/out/SalvarProdutoPort";
+import ProdutoMapper from "../inbound/mapper/ProdutoMapper";
 import ProdutoRepository from "./repository/ProdutoRepository";
 
 export class SalvarProdutoAdapter implements SalvarProdutoPort {
   constructor() {
     this.criar = this.criar.bind(this);
   }
-  criar = async (produto: Produto): Promise<Produto | Erro> => {
+  criar = async (produto: Produto): Promise<Produto> => {
     try {
       return ProdutoRepository.salvar(produto);
     } catch (erro) {
-      console.log(erro);
-      return {
-        mensagem: "Não foi possível criar um produto novo",
-        status: 400,
-      };
+      throw erro;
     }
   };
 }

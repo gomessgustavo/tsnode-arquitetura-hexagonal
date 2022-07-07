@@ -16,9 +16,9 @@ class UsuarioRepository {
   };
 
   porId = async (usuarioId: number): Promise<UsuarioEntity | null> => {
-    const { Veiculo } = database.connection.models;
+    const { VeiculoEntity } = database.connection.models;
     const usuario = await this.repository.findByPk(usuarioId, {
-      include: [Veiculo],
+      include: [VeiculoEntity],
       attributes: {
         exclude: ["senha"],
       },

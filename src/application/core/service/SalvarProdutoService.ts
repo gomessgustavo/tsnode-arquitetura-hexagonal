@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import ProdutoMapper from "../../../adapters/inbound/mapper/ProdutoMapper";
 import { ProdutoRequest } from "../../../adapters/inbound/request/ProdutoRequest";
 import { SalvarProdutoServicePort } from "../../ports/in/SalvarProdutoServicePort";
 import SalvarProdutoPort from "../../ports/out/SalvarProdutoPort";
@@ -14,6 +15,8 @@ export class SalvarProdutoService implements SalvarProdutoServicePort {
   }
 
   criar = async (produto: ProdutoRequest) => {
-    return this.salvarProdutoPort.criar(produto);
+    const entity = ProdutoMapper.toEntity(produto);
+    const result = await this.salvarProdutoPort.criar(entity);
+    return ProdutoMapper.toResponse(result);
   };
 }
