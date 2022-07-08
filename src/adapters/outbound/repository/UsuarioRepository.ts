@@ -11,7 +11,7 @@ class UsuarioRepository {
   }
 
   salvar = async (usuario: Usuario): Promise<UsuarioEntity> => {
-    const [usuarioSalvo] = await this.repository.upsert({ ...usuario });
+    const usuarioSalvo = await this.repository.create({ ...usuario });
     return usuarioSalvo;
   };
 

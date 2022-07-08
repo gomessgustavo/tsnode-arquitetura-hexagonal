@@ -3,5 +3,5 @@ import { ProdutoResponse } from "../../../adapters/inbound/response/ProdutoRespo
 import { Erro } from "../../core/domain/Erro";
 
 export interface SalvarProdutoServicePort {
-  criar(produto: ProdutoRequest): Promise<ProdutoResponse | Erro>;
+  criar(produto: ProdutoRequest): Promise<ProdutoResponse>;
 }

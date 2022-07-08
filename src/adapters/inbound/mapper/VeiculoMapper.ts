@@ -19,7 +19,7 @@ class VeiculoMapper {
     return entities.map((veiculo) => this.toResponse(veiculo));
   };
 
-  toResponse = (entity: VeiculoEntity): VeiculoResponse => {
+  toResponse = (entity: Veiculo): VeiculoResponse => {
     const response = new VeiculoResponse();
 
     response.id = entity.id;
