@@ -40,14 +40,14 @@ export class SalvarUsuarioService implements SalvarUsuarioServicePort {
 
       const response = await this.salvarUsuarioPort.criar(usuario);
       if (response instanceof Erro) {
-        throw new Error();
+        throw response;
       }
 
       response.veiculos = [];
       return UsuarioMapper.toResponse(response);
     } catch (erro) {
-      if (erro instanceof Error) {
-        return new Erro(erro.message, 400);
+      if (erro instanceof Erro) {
+        return new Erro(erro.mensagem, erro.status);
       }
 
       return new Erro("Falha ao salvar usuário", 400);

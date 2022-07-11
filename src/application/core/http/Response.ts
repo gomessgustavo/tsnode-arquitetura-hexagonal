@@ -5,16 +5,12 @@ class Response {
   status: number;
 }
 
-function isErro(objeto: Object): objeto is Erro {
-  return (<Erro>objeto).mensagem !== undefined;
-}
-
 export const getResponse = (
   objeto: Object,
   statusSucesso?: number
 ): Response => {
   const response = new Response();
-  if (isErro(objeto)) {
+  if (objeto instanceof Erro) {
     response.data = {
       erro: {
         mensagem: objeto.mensagem,

@@ -11,15 +11,9 @@ export class ProcurarProdutoAdapter implements ProcurarProdutoPort {
     try {
       const produto = await ProdutoRepository.porId(produtoId);
       if (produto) return produto;
-      return {
-        mensagem: "Não foi encontrado nenhum produto com o id",
-        status: 404,
-      };
+      throw new Erro("Não foi encontrado produto com esse id", 404);
     } catch (erro) {
-      return {
-        mensagem: "Não foi possível listar os produtos",
-        status: 400,
-      };
+      throw erro;
     }
   };
 }

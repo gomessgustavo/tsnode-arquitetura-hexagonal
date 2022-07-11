@@ -12,11 +12,6 @@ export class EditarProdutoAdapter implements EditarProdutoPort {
     produto: Produto
   ): Promise<Produto | Erro> => {
     try {
-      const produtoPorId = await ProdutoRepository.porId(produtoId);
-      if (!produtoPorId) {
-        return { mensagem: "Não foi encontrado nenhum produto", status: 404 };
-      }
-
       const produtoEditado = {
         id: produtoId,
         nome: produto.nome,
@@ -25,7 +20,7 @@ export class EditarProdutoAdapter implements EditarProdutoPort {
       };
       return await ProdutoRepository.salvar(produtoEditado);
     } catch (error) {
-      return { mensagem: "Não foi possível editar o produto", status: 400 };
+      throw error;
     }
   };
 }

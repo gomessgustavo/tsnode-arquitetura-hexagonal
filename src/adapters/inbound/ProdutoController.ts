@@ -23,7 +23,7 @@ export class ProdutoController {
     const produtoMapeado = ProdutoMapper.toEntity(body);
     const produtoCriado = await salvarProdutoService.criar(produtoMapeado);
     const formataResponse = getResponse(produtoCriado, 201);
-    res.status(formataResponse.status).json(formataResponse.data);
+    res.status(formataResponse.status).json(formataResponse);
   }
 
   async listagem(_: Request, res: Response): Promise<void> {
@@ -31,7 +31,7 @@ export class ProdutoController {
     const produtos = await listarProdutosService.listar();
 
     const formataResponse = getResponse(produtos);
-    res.status(formataResponse.status).json(formataResponse.data);
+    res.status(formataResponse.status).json(formataResponse);
   }
 
   async porId(req: Request, res: Response): Promise<void> {
@@ -41,7 +41,7 @@ export class ProdutoController {
     const produto = await procurarProdutoService.procurar(produtoId);
 
     const formataResponse = getResponse(produto);
-    res.status(formataResponse.status).json(formataResponse.data);
+    res.status(formataResponse.status).json(formataResponse);
   }
 
   async deletar(req: Request, res: Response): Promise<void> {
@@ -66,6 +66,6 @@ export class ProdutoController {
       produtoMapeado
     );
     const formataResponse = getResponse(response);
-    res.status(formataResponse.status).json(formataResponse.data);
+    res.status(formataResponse.status).json(formataResponse);
   }
 }

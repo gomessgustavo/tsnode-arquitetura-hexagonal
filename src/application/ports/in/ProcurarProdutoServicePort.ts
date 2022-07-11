@@ -1,8 +1,8 @@
-import { Produto } from "../../../application/core/domain/Produto";
+import { ProdutoResponse } from "../../../adapters/inbound/response/ProdutoResponse";
 import { Erro } from "../../core/domain/Erro";
 
 interface ProcurarProdutoServicePort {
-  procurar(produtoId: number): Promise<Produto | Erro>;
+  procurar(produtoId: number): Promise<ProdutoResponse | Erro>;
 }
 
 export default ProcurarProdutoServicePort;

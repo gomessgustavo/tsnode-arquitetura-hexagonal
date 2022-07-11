@@ -1,8 +1,8 @@
+import { ProdutoResponse } from "../../../adapters/inbound/response/ProdutoResponse";
 import { Erro } from "../../core/domain/Erro";
-import { Produto } from "../../core/domain/Produto";
 
 interface ListarProdutoServicePort {
-  listar(): Promise<Array<Produto> | Erro>;
+  listar(): Promise<ProdutoResponse[] | Erro>;
 }
 
 export default ListarProdutoServicePort;

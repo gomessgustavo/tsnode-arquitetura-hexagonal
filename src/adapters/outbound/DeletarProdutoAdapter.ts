@@ -10,10 +10,7 @@ export class DeletarProdutoAdapter implements DeletarProdutoPort {
     try {
       return await ProdutoRepository.deletar(produtoId);
     } catch (erro) {
-      return {
-        mensagem: "Não foi possível deletar o produto",
-        status: 404,
-      };
+      throw erro;
     }
   };
 }

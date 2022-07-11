@@ -18,7 +18,7 @@ export class UsuarioController {
     const usuarioMapeado = UsuarioMapper.toEntity(body);
     const usuarioCriado = await salvarUsuarioService.criar(usuarioMapeado);
     const formataResponse = getResponse(usuarioCriado, 201);
-    res.status(formataResponse.status).send(formataResponse.data);
+    res.status(formataResponse.status).send(formataResponse);
   }
 
   async buscar(req: Request, res: Response): Promise<void> {
@@ -28,6 +28,6 @@ export class UsuarioController {
     const usuario = await buscarUsuarioService.buscar(usuarioBuscado);
 
     const formataResponse = getResponse(usuario);
-    res.status(formataResponse.status).json(formataResponse.data);
+    res.status(formataResponse.status).json(formataResponse);
   }
 }

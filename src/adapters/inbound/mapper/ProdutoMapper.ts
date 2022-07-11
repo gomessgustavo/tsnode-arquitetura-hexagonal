@@ -17,6 +17,10 @@ class ProdutoMapper {
 
     return response;
   };
+
+  toProdutosResponse = (produtos: Produto[]): ProdutoResponse[] => {
+    return produtos.map((produto) => this.toResponse(produto));
+  };
 }
 
 export default new ProdutoMapper();

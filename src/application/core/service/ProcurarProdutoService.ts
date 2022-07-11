@@ -1,6 +1,8 @@
 import ProcurarProdutoServicePort from "../../ports/in/ProcurarProdutoServicePort";
 import { inject, injectable } from "tsyringe";
 import ProcurarProdutoPort from "../../ports/out/ProcurarProdutoPort";
+import { Erro } from "../domain/Erro";
+import ProdutoMapper from "../../../adapters/inbound/mapper/ProdutoMapper";
 
 @injectable()
 export class ProcurarProdutoService implements ProcurarProdutoServicePort {
@@ -12,6 +14,19 @@ export class ProcurarProdutoService implements ProcurarProdutoServicePort {
   }
 
   procurar = async (produtoId: number) => {
-    return this.procurarProdutoPort.procurar(produtoId);
+    try {
+      const produto = await this.procurarProdutoPort.procurar(produtoId);
+      if (produto instanceof Erro) {
+        throw produto;
+      }
+
+      return ProdutoMapper.toResponse(produto);
+    } catch (erro) {
+      if (erro instanceof Erro) {
+        return new Erro(erro.mensagem, erro.status);
+      }
+
+      return new Erro("Falha ao listar os produtos", 400);
+    }
   };
 }

@@ -22,6 +22,6 @@ export class VeiculoController {
       veiculoMapeado
     );
     const formataResponse = getResponse(usuarioCriado, 201);
-    res.status(formataResponse.status).send(formataResponse.data);
+    res.status(formataResponse.status).send(formataResponse);
   }
 }
