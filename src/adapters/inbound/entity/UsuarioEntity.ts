@@ -2,10 +2,12 @@ import {
   Column,
   CreatedAt,
   HasMany,
+  IsEmail,
   IsUUID,
   Model,
   PrimaryKey,
   Table,
+  Unique,
   UpdatedAt,
 } from "sequelize-typescript";
 import { Usuario } from "../../../application/core/domain/Usuario";
@@ -22,6 +24,10 @@ class UsuarioEntity extends Model<Usuario> {
 
   @Column
   nome: string;
+
+  @Unique
+  @Column
+  apelido: string;
 
   @Column
   senha: string;

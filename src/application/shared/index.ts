@@ -17,6 +17,8 @@ import SalvarVeiculoPort from "../ports/out/SalvarVeiculoPort";
 import { SalvarVeiculoAdapter } from "../../adapters/outbound/SalvarVeiculoAdapter";
 import BuscarUsuarioPort from "../ports/out/BuscarUsuarioPort";
 import { BuscarUsuarioAdapter } from "../../adapters/outbound/BuscarUsuarioAdapter";
+import { LoginPort } from "../ports/out/LoginPort";
+import { LoginAdapter } from "../../adapters/outbound/LoginAdapter";
 
 container.registerSingleton<SalvarProdutoPort>(
   "SalvarProdutoAdapter",
@@ -62,3 +64,5 @@ container.registerSingleton<BuscarUsuarioPort>(
   "BuscarUsuarioAdapter",
   BuscarUsuarioAdapter
 );
+
+container.registerSingleton<LoginPort>("LoginAdapter", LoginAdapter);

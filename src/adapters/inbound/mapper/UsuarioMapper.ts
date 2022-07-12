@@ -11,6 +11,7 @@ class UsuarioMapper {
     usuario.cep = request.cep;
     usuario.idade = request.idade;
     usuario.senha = request.senha;
+    usuario.apelido = request.apelido;
 
     return usuario;
   };

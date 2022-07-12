@@ -4,6 +4,7 @@ export class Usuario {
   nome: string;
   idade: number;
   cep: string;
+  apelido: string;
   logradouro: string;
   complemento: string;
   bairro: string;

@@ -3,4 +3,5 @@ export class UsuarioRequest {
   idade: number;
   cep: string;
   senha: string;
+  apelido: string;
 }

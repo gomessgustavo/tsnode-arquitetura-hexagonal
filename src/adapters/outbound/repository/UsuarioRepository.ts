@@ -11,19 +11,25 @@ class UsuarioRepository {
   }
 
   salvar = async (usuario: Usuario): Promise<UsuarioEntity> => {
-    const usuarioSalvo = await this.repository.create({ ...usuario });
-    return usuarioSalvo;
+    return await this.repository.create({ ...usuario });
   };
 
   porId = async (usuarioId: number): Promise<UsuarioEntity | null> => {
     const { VeiculoEntity } = database.connection.models;
-    const usuario = await this.repository.findByPk(usuarioId, {
+    return await this.repository.findByPk(usuarioId, {
       include: [VeiculoEntity],
       attributes: {
         exclude: ["senha"],
       },
     });
-    return usuario;
+  };
+
+  porApelido = async (apelido: string): Promise<UsuarioEntity | null> => {
+    return await this.repository.findOne({
+      where: {
+        apelido,
+      },
+    });
   };
 }
 
